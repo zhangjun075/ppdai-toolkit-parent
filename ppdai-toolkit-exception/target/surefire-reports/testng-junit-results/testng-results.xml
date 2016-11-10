@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="3" passed="3">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Surefire suite" duration-ms="1116" started-at="2016-11-10T09:52:00Z" finished-at="2016-11-10T09:52:01Z">
+    <groups>
+    </groups>
+    <test name="Surefire test" duration-ms="1116" started-at="2016-11-10T09:52:00Z" finished-at="2016-11-10T09:52:01Z">
+      <class name="com.ppdai.exception.ExtExceptionsTest">
+        <test-method status="PASS" signature="unchecked()[pri:0, instance:unchecked(com.ppdai.exception.ExtExceptionsTest)]" name="unchecked" duration-ms="71" started-at="2016-11-10T17:52:01Z" finished-at="2016-11-10T17:52:01Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- unchecked -->
+        <test-method status="PASS" signature="isCausedBy()[pri:0, instance:isCausedBy(com.ppdai.exception.ExtExceptionsTest)]" name="isCausedBy" duration-ms="2" started-at="2016-11-10T17:52:01Z" finished-at="2016-11-10T17:52:01Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- isCausedBy -->
+        <test-method status="PASS" signature="getStackTraceAsString()[pri:0, instance:getStackTraceAsString(com.ppdai.exception.ExtExceptionsTest)]" name="getStackTraceAsString" duration-ms="6" started-at="2016-11-10T17:52:01Z" finished-at="2016-11-10T17:52:01Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getStackTraceAsString -->
+      </class> <!-- com.ppdai.exception.ExtExceptionsTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd"
+	default-autowire="byName">
+	<bean id="buisnessHandler"
+		class="com.jjjr.framework.exception.handler.impl.BusinessHandlerImpl" />
+	<bean id="maxUploadSizeExceededExceptionHandler"
+		class="com.jjjr.framework.exception.handler.impl.MaxUploadSizeExceededExceptionHandlerImpl" />
+
+	<bean id="jsonBuisnessHandler"
+		class="com.jjjr.framework.exception.handler.impl.JsonBusinessHandlerImpl" />
+
+	<bean id="systemHandler"
+		class="com.jjjr.framework.exception.handler.impl.SystemHandlerImpl">
+		<property name="nextHandler" ref="logHandler" />
+	</bean>
+
+	<bean id="jsonSystemHandler"
+		class="com.jjjr.framework.exception.handler.impl.JsonSystemHandlerImpl">
+		<property name="nextHandler" ref="logHandler" />
+	</bean>
+
+	<bean id="defaultHandler"
+		class="com.jjjr.framework.exception.handler.impl.DefaultHandlerImpl">
+		<property name="nextHandler" ref="logHandler" />
+	</bean>
+
+	<bean id="emailHandler"
+		class="com.jjjr.framework.exception.handler.impl.EmailHandlerImpl">
+		<property name="nextHandler" ref="smsHandler" />
+	</bean>
+
+	<bean id="smsHandler"
+		class="com.jjjr.framework.exception.handler.impl.SmsHandlerImpl">
+	</bean>
+
+	<bean id="logHandler"
+		class="com.jjjr.framework.exception.handler.impl.LogHandlerImpl">
+		<property name="nextHandler" ref="emailHandler" />
+	</bean>
+
+	<bean id="handlerFactory"
+		class="com.jjjr.framework.exception.handler.factory.HandlerFactory">
+		<property name="handlerMap">
+			<map key-type="java.lang.Class" value-type="com.jjjr.framework.exception.handler.Handler">
+				<entry key="com.jjjr.framework.exception.BusinessException"
+					value-ref="buisnessHandler" />
+				<!-- <entry key="com.jjjr.framework.exception.JsonBusinessException" 
+					value-ref="jsonBuisnessHandler" /> -->
+				<entry key="com.jjjr.framework.exception.SystemException"
+					value-ref="systemHandler" />
+
+				<entry
+					key="org.springframework.web.multipart.MaxUploadSizeExceededException"
+					value-ref="maxUploadSizeExceededExceptionHandler" />
+				<!-- <entry key="com.jjjr.framework.exception.JsonSystemException" value-ref="jsonSystemHandler" 
+					/> -->
+			</map>
+		</property>
+		<property name="defaultHandler" ref="defaultHandler" />
+	</bean>
+
+	<bean id="exceptionAsyncExecuteService" class="com.jjjr.framework.async.impl.AsyncExecuteServiceImpl">
+		<constructor-arg>
+			<props>
+				<prop key="aes_core_pool_size">10</prop>
+				<prop key="aes_max_pool_size">50</prop>
+				<prop key="aes_keep_alive_time">30</prop>
+				<prop key="aes_work_queue_size">1000</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+
+	<!--远程接口引用 consultService <bean id="messageOpenAPI" class="org.springframework.remoting.caucho.HessianProxyFactoryBean"> 
+		<property name="serviceUrl"> <value>${message.serviceUrl}/MessageOpenAPI</value> 
+		</property> <property name="serviceInterface"> <value>com.jjjr.message.service.MessageOpenAPI</value> 
+		</property> </bean> -->
+
+</beans>
